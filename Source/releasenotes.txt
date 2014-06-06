@@ -1,5 +1,9 @@
 ﻿<b>If you installed v00.00.01, you need to start from scratch due to a bug in the intial sql query</b><hr/>
 
+<b>v00.01.1807</b> - UNRELEASED<br/>
+Built for DNN v5.4.4+, removed html workflow functionality (splitting into separate module), update license to MIT
+<br/>
+
 <b>v00.00.104</b> - 10/06/2009 @9pm -4GMT<br/>
 Built for DNN v5.1.3+, added Localization, fixed msbuild packaging script<br/><br/>
 

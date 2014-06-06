@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="OliverHine.CustomPermissionProvider" type="Provider" version="00.00.1807">
+    <package name="OliverHine.CustomPermissionProvider" type="Provider" version="00.01.1807">
       <friendlyName>Oliver Hine - Enhanced Permission Provider</friendlyName>
       <description>The 'Enhanced Permission Provider' project provides all the possible permissions you could ever want in your portals</description>
       <dependencies/>
@@ -15,7 +15,7 @@
       <components>
         <component type="Script">
           <scripts>
-            <basePath>Providers\PermissionProviders\EnhancedPermissionProvider</basePath>
+            <basePath>Providers\PermissionProviders\EnhancedPermissionsProvider</basePath>
             <script type="Install">
               <name>00.00.01.sqldataprovider</name>
               <version>00.00.01</version>
@@ -33,16 +33,12 @@
               <version>00.00.06</version>
             </script>
             <script type="Install">
-              <name>00.00.10.sqldataprovider</name>
-              <version>00.00.10</version>
-            </script>
-            <script type="Install">
               <name>00.00.15.sqldataprovider</name>
               <version>00.00.15</version>
             </script>
             <script type="UnInstall">
               <name>uninstall.sqldataprovider</name>
-              <version>00.00.104</version>
+              <version>00.01.1807</version>
             </script>
           </scripts>
         </component>
@@ -50,13 +46,13 @@
           <assemblies>
             <assembly>
               <path>bin\Providers</path>
-              <name>OliverHine.Provider.EnhancedPermissions.dll</name><version>00.00.1807</version>
+              <name>OliverHine.Provider.EnhancedPermissions.dll</name><version>00.01.1807</version>
             </assembly>
           </assemblies>
         </component>
         <component type="File">
           <files>
-            <basePath>Providers\PermissionProviders\EnhancedPermissionProvider</basePath>
+            <basePath>Providers\PermissionProviders\EnhancedPermissionsProvider</basePath>
             <file>
               <path>App_LocalResources</path>
               <name>EnhancedPermissionProvider.resx</name>
@@ -80,7 +76,7 @@
                     <permissions defaultProvider="EnhancedPermissionProvider">
                       <providers>
                         <clear />
-                        <add name="EnhancedPermissionProvider" type="OliverHine.Provider.EnhancedPermissions.Implementation, OliverHine.Provider.EnhancedPermissions" providerPath="~\Providers\PermissionProviders\EnhancedPermissionProvider\" />
+                        <add name="EnhancedPermissionProvider" type="OliverHine.Provider.EnhancedPermissions.Implementation, OliverHine.Provider.EnhancedPermissions" providerPath="~\Providers\PermissionProviders\EnhancedPermissionsProvider\" />
                       </providers>
                     </permissions>
                   </node>

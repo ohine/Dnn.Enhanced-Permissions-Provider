@@ -129,7 +129,6 @@
     <None Include="00.00.01.SqlDataProvider" />
     <None Include="00.00.04.SqlDataProvider" />
     <None Include="00.00.05.SqlDataProvider" />
-    <None Include="00.00.10.SqlDataProvider" />
     <None Include="00.00.06.SqlDataProvider" />
     <None Include="00.00.15.SqlDataProvider" />
     <None Include="EnhancedPermissionProvider.dnn" />

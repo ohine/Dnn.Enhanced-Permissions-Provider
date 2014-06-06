@@ -64,11 +64,3 @@ WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'EDIT'
 
 UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 9997 WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'MANAGE'
 UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 9998 WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'EDIT'
-
-
-/* Create the REVIEW control in the Text/HTML module */
-DECLARE @TextHTMLModuleDefID int
-SET @TextHTMLModuleDefID = (SELECT TOP 1 [ModuleDefID] FROM {databaseOwner}[{objectQualifier}ModuleDefinitions] WHERE [FriendlyName] = 'Text/HTML')
-
-INSERT INTO {databaseOwner}[{objectQualifier}ModuleControls]([ModuleDefID],[ControlKey],[ControlTitle],[ControlSrc],[ControlType],[ViewOrder],[SupportsPartialRendering]) 
-VALUES (@TextHTMLModuleDefID,'Review', 'Review / Approve Content', 'DesktopModules/HTML/EditHTML.ascx', 1,0,0)

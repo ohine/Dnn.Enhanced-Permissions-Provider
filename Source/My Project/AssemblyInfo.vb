@@ -7,8 +7,8 @@ Imports System.Runtime.InteropServices
 ' associated with an assembly.
 
 ' Review the values of the assembly attributes
-<Assembly: AssemblyTitle("Oliver Hine - Custom Permission Provider")> 
-<Assembly: AssemblyDescription("A Custom Enhanced Permission Provider for DotNetNuke CE")> 
+<Assembly: AssemblyTitle("Oliver Hine - Enhanced Permissions Provider")> 
+<Assembly: AssemblyDescription("A Custom Enhanced Permission Provider for DotNetNuke and the DNN Platform")> 
 <Assembly: AssemblyCompany("Oliver Hine")> 
 <Assembly: AssemblyProduct("")> 
 <Assembly: AssemblyCopyright("2009 - www.OliverHine.com")> 
@@ -25,4 +25,4 @@ Imports System.Runtime.InteropServices
 '
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
-<Assembly: AssemblyVersion("00.00.1807.00")> 
+<Assembly: AssemblyVersion("00.01.1807.00")> 
