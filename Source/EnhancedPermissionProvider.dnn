@@ -1,6 +1,6 @@
 ﻿<dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="OliverHine.CustomPermissionProvider" type="Provider" version="00.00.104">
+    <package name="OliverHine.CustomPermissionProvider" type="Provider" version="00.00.1807">
       <friendlyName>Oliver Hine - Enhanced Permission Provider</friendlyName>
       <description>The 'Enhanced Permission Provider' project provides all the possible permissions you could ever want in your portals</description>
       <dependencies/>
@@ -50,7 +50,7 @@
           <assemblies>
             <assembly>
               <path>bin\Providers</path>
-              <name>OliverHine.Provider.EnhancedPermissions.dll</name><version>00.00.104</version>
+              <name>OliverHine.Provider.EnhancedPermissions.dll</name><version>00.00.1807</version>
             </assembly>
           </assemblies>
         </component>

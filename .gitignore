@@ -49,6 +49,7 @@ _ReSharper*
 # Others
 
 [Oo]bj
+[Bb]in
 TestResults
 *.Cache
 ClientBin

@@ -7,12 +7,12 @@
 		<CompanyName>OliverHine</CompanyName>
 		<ModuleName>EnhancedPermissionProvider</ModuleName>
     <AssemblyName>OliverHine.Provider.EnhancedPermissions</AssemblyName>
-		<DotNetNukeDir>C:\Users\Oliver\Programming\DotNetNuke\trunk\Website</DotNetNukeDir>
+		<DotNetNukeDir></DotNetNukeDir>
 		<EnableDeployment>1</EnableDeployment>
 		<DeployPDB>1</DeployPDB>
 
 		<RootDir>$(MSBuildProjectDirectory)\..</RootDir>
-		<DeployDir>$(RootDir)\deploy</DeployDir>
+		<DeployDir>$(RootDir)\Packages</DeployDir>
 		<InstallDir>$(MSBuildProjectDirectory)\installation</InstallDir>
 		<BackupDotNetNukeDir>$(DotNetNukeDir)</BackupDotNetNukeDir>
 	</PropertyGroup>
@@ -108,7 +108,7 @@
 		</CreateItem>
 		<!-- Copy Files to DotNetNuke Installation -->
 		<Copy SourceFiles="@(InstallZip)" DestinationFolder="$(DotNetNukeDir)\Install\Module\" SkipUnchangedFiles="false" ContinueOnError="true" />
-		<CallTarget Targets="DeployPDB" Condition="$(DeployPDB) == 1 and '$(ConfigurationName)'=='Debug'" />
+		<CallTarget Targets="DeployPDB" Condition="$(DeployPDB) == 1 and '$(ConfigurationName)'=='Debug' and '$(DotNetNukeDir)'!=''" />
 	</Target>
 	<Target Name="DeployPDB">
 		<CreateItem Include="$(TargetDir)\$(CompanyName).$(ModuleName).pdb">
