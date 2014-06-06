@@ -1,0 +1,29 @@
+﻿<b>If you installed v00.00.01, you need to start from scratch due to a bug in the intial sql query</b><hr/>
+
+<b>v00.00.104</b> - 10/06/2009 @9pm -4GMT<br/>
+Built for DNN v5.1.3+, added Localization, fixed msbuild packaging script<br/><br/>
+
+<b>v00.00.16</b> - 7/10/2009 @5pm -4GMT<br/>
+After an extensive review by Sebastian Leupold, the provider has been renamed to the "Enhanced Permission Provider" 
+and we switched around a few permission keys. Mainly ADMIN now takes over the EDIT/WRITE permission objects, we added the 
+MANAGE key, and also enabled the Navigate to Page Tab Permission object.<br/><br/>The install process has also been updated so you 
+don't have to manually edit the web.config to enable the provider after installation.<br/><br/>
+I welcome all feedback and suggestions to further Enhance the Permission Provider for the community!<br/><br/>
+
+<b>v00.00.14</b> - 7/08/2009 @10pm -4GMT<br/>
+This release adds the html module advanced workflow bits back into the community edition. It also creates a fully functional 'content approval' workflow for portalid 0. Testing is required! and with this version the uninstall script will NOT remove the workflow bits...<br/><br/>
+updated the 'manage' permssions to 'manage settings' and 'admin' to 'full control'<br/><br/>
+
+<b>v00.00.05</b> - 6/29/2009 @4pm -4GMT<br/>
+Added File System Permissions<br/><br/>
+
+<b>v00.00.04</b> - 6/28/2009 @11pm -4GMT<br/>
+Added Custom Tab Permissions<br/><br/>
+This is the second release, and it <u>shouldn't be installed over the previous version</u> because I had to modify the initial sql script. I changed my mind about replacing the EDIT permission key with MANAGE, so it "should" be able to be uninstalled a bit cleaner...<br/><br/>
+
+
+<b>v00.00.01</b> - 6/25/2009 @10pm -4GMT<br/>
+This is the very first release of the Custom Permission Provider for DotNetNuke 5.1+<br/><br/>
+Installation is pretty straight forward, after the module has installed successfully you need to modify your web.config to enable the provider.... <br/><br/>
+You need to locate and find [<permissions defaultProvider="CorePermissionProvider">] and replace it with [<permissions defaultProvider="CustomPermissionProvider">] to fully enable my new custom permissions provider!<br/><br/>
+Should you need to uninstall the module, switch the defaultProvider back manually, then uninstall the module through the Extensions page. 

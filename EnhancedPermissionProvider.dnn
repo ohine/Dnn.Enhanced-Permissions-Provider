@@ -1,0 +1,111 @@
+﻿<dotnetnuke type="Package" version="5.0">
+  <packages>
+    <package name="OliverHine.CustomPermissionProvider" type="Provider" version="00.00.104">
+      <friendlyName>Oliver Hine - Enhanced Permission Provider</friendlyName>
+      <description>The 'Enhanced Permission Provider' project provides all the possible permissions you could ever want in your portals</description>
+      <dependencies/>
+      <owner>
+        <name>Oliver Hine</name>
+        <organization>Oliver Hine</organization>
+        <url>www.OliverHine.com</url>
+        <email>me@oliverhine.com</email>
+      </owner>
+      <license src="license.txt" />
+      <releaseNotes src="releaseNotes.txt" />
+      <components>
+        <component type="Script">
+          <scripts>
+            <basePath>Providers\PermissionProviders\EnhancedPermissionProvider</basePath>
+            <script type="Install">
+              <name>00.00.01.sqldataprovider</name>
+              <version>00.00.01</version>
+            </script>
+            <script type="Install">
+              <name>00.00.04.sqldataprovider</name>
+              <version>00.00.04</version>
+            </script>
+            <script type="Install">
+              <name>00.00.05.sqldataprovider</name>
+              <version>00.00.05</version>
+            </script>
+            <script type="Install">
+              <name>00.00.06.sqldataprovider</name>
+              <version>00.00.06</version>
+            </script>
+            <script type="Install">
+              <name>00.00.10.sqldataprovider</name>
+              <version>00.00.10</version>
+            </script>
+            <script type="Install">
+              <name>00.00.15.sqldataprovider</name>
+              <version>00.00.15</version>
+            </script>
+            <script type="UnInstall">
+              <name>uninstall.sqldataprovider</name>
+              <version>00.00.104</version>
+            </script>
+          </scripts>
+        </component>
+        <component type="Assembly">
+          <assemblies>
+            <assembly>
+              <path>bin\Providers</path>
+              <name>OliverHine.Provider.EnhancedPermissions.dll</name><version>00.00.104</version>
+            </assembly>
+          </assemblies>
+        </component>
+        <component type="File">
+          <files>
+            <basePath>Providers\PermissionProviders\EnhancedPermissionProvider</basePath>
+            <file>
+              <path>App_LocalResources</path>
+              <name>EnhancedPermissionProvider.resx</name>
+            </file>
+            <file>
+              <name>license.txt</name>
+            </file>
+            <file>
+              <name>releaseNotes.txt</name>
+            </file>
+          </files>
+        </component>
+        <component type="Config">
+          <config>
+            <configFile>web.config</configFile>
+            <install>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/dotnetnuke/permissions" action="remove" />
+                  <node path="/configuration/dotnetnuke" action="update" key="defaultProvider" collision="overwrite">
+                    <permissions defaultProvider="EnhancedPermissionProvider">
+                      <providers>
+                        <clear />
+                        <add name="EnhancedPermissionProvider" type="OliverHine.Provider.EnhancedPermissions.Implementation, OliverHine.Provider.EnhancedPermissions" providerPath="~\Providers\PermissionProviders\EnhancedPermissionProvider\" />
+                      </providers>
+                    </permissions>
+                  </node>
+                </nodes>
+              </configuration>
+            </install>
+            <uninstall>
+              <configuration>
+                <nodes>
+                  <node path="/configuration/dotnetnuke/permissions" action="remove" />
+                  <node path="/configuration/dotnetnuke" action="update" key="defaultProvider" collision="overwrite">
+                    <permissions defaultProvider="CorePermissionProvider">
+                      <providers>
+                        <clear />
+                        <add name="CorePermissionProvider" type="DotNetNuke.Security.Permissions.CorePermissionProvider, DotNetNuke.Provider.CorePermissionProvider" providerPath="~\Providers\PermissionProviders\CorePermissionProvider\" />
+                      </providers>
+                    </permissions>
+                  </node>
+                </nodes>
+              </configuration>
+            </uninstall>
+          </config>
+        </component>
+        <component type="Cleanup" version="00.00.16" fileName="Cleanup.v00.00.16.txt"></component>
+      </components>
+    </package>
+  </packages>
+</dotnetnuke>

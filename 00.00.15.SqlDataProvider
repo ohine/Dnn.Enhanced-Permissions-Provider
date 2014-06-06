@@ -1,0 +1,74 @@
+﻿/************************************************************/
+/*****    Update our Custom FileSystem Permissions      *****/
+/************************************************************/
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Add Content'
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'ADD'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Copy/Move Content'
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'COPY'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Delete Folder/Content'
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'DELETE'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Manage Security'
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'WRITE'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Sync Files and Database', [PermissionKey] = 'MANAGE'
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'ADMIN'
+
+
+
+/************************************************************/
+/*****     Update our Custom Tab Permissions            *****/
+/************************************************************/
+
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_TAB', 'NAV', 'Navigate to Page', 9999)
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Manage Settings', [PermissionKey] = 'MANAGE', [ViewOrder] = 5
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'ADMIN'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Set Permissions'
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'EDIT'
+
+
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 1 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'NAV'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 2 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'CONTENT'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 3 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'ADD'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 4 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'COPY'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 5 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'DELETE'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 6 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'IMPORT'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 7 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'EXPORT'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 9997 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'MANAGE'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 9998 WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'EDIT'
+
+
+/************************************************************/
+/*****    Update our Custom Module Permissions          *****/
+/************************************************************/
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Manage Settings', [PermissionKey] = 'MANAGE', [ViewOrder] = 5
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'ADMIN'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Set Permissions'
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'EDIT'
+
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 9997 WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'MANAGE'
+UPDATE {databaseOwner}{objectQualifier}Permission SET [ViewOrder] = 9998 WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'EDIT'
+
+
+/* Create the REVIEW control in the Text/HTML module */
+DECLARE @TextHTMLModuleDefID int
+SET @TextHTMLModuleDefID = (SELECT TOP 1 [ModuleDefID] FROM {databaseOwner}[{objectQualifier}ModuleDefinitions] WHERE [FriendlyName] = 'Text/HTML')
+
+INSERT INTO {databaseOwner}[{objectQualifier}ModuleControls]([ModuleDefID],[ControlKey],[ControlTitle],[ControlSrc],[ControlType],[ViewOrder],[SupportsPartialRendering]) 
+VALUES (@TextHTMLModuleDefID,'Review', 'Review / Approve Content', 'DesktopModules/HTML/EditHTML.ascx', 1,0,0)

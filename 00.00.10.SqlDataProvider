@@ -1,0 +1,127 @@
+﻿/************************************************************/
+/*****  Build our HTML Pro Advanced Workflow Features   *****/
+/************************************************************/
+
+/* CREATE WORKFLOW STATE PERMISSION TABLE */
+CREATE TABLE {databaseOwner}[{objectQualifier}WorkflowStatePermission](
+	[WorkflowStatePermissionID] [int] IDENTITY(1,1) NOT NULL,
+	[StateID] [int] NOT NULL,
+	[PermissionID] [int] NOT NULL,
+	[AllowAccess] [bit] NULL,
+	[RoleID] [int] NULL,
+	[UserID] [int] NULL,
+	[CreatedByUserID] [int] NULL,
+	[CreatedOnDate] [datetime] NULL,
+	[LastModifiedByUserID] [int] NULL,
+	[LastModifiedOnDate] [datetime] NULL,
+ CONSTRAINT [PK_{objectQualifier}WorkflowStatePermissions] PRIMARY KEY CLUSTERED 
+(
+	[WorkflowStatePermissionID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/*******************************************/
+
+
+/****** Object:  View [dbo].[vw_WorkflowStatePermissions]    Script Date: 07/09/2009 00:24:39 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE VIEW {databaseOwner}[vw_{objectQualifier}WorkflowStatePermissions]
+AS
+SELECT     MP.WorkflowStatePermissionID, MP.StateID, P.PermissionID, MP.RoleID, 
+                      CASE MP.RoleID WHEN - 1 THEN 'All Users' WHEN - 2 THEN 'Superuser' WHEN - 3 THEN 'Unauthenticated Users' ELSE R.RoleName END AS RoleName, 
+                      MP.AllowAccess, MP.UserID, U.Username, U.DisplayName, P.PermissionCode, P.ModuleDefID, P.PermissionKey, P.PermissionName, MP.CreatedByUserID, 
+                      MP.CreatedOnDate, MP.LastModifiedByUserID, MP.LastModifiedOnDate
+FROM         {databaseOwner}[{objectQualifier}WorkflowStatePermission] AS MP LEFT OUTER JOIN
+                      {databaseOwner}[{objectQualifier}Permission] AS P ON MP.PermissionID = P.PermissionID LEFT OUTER JOIN
+                      {databaseOwner}[{objectQualifier}Roles] AS R ON MP.RoleID = R.RoleID LEFT OUTER JOIN
+                      {databaseOwner}[{objectQualifier}Users] AS U ON MP.UserID = U.UserID
+
+GO
+
+
+
+
+/* INSERT CONTENT APPROVAL WORKFLOW */
+INSERT INTO {databaseOwner}[{objectQualifier}Workflow] ([WorkflowName], [Description], [IsDeleted])
+VALUES('Content Approval', 'Require Approval before Publishing', 0)
+/************************************/
+
+
+
+/* INSERT STAGES FOR CONTENT APPROVAL WORKFLOW */
+DECLARE @TestingWorkflowID int
+SET @TestingWorkflowID = (select WorkflowId from {databaseOwner}[{objectQualifier}Workflow] where WorkflowName = 'Content Approval')
+
+INSERT INTO {databaseOwner}[{objectQualifier}WorkflowStates] (WorkflowID, StateName, [Order], IsActive, Notify)
+	VALUES(@TestingWorkflowID,'Draft', 1, 1, 0)
+	
+INSERT INTO {databaseOwner}[{objectQualifier}WorkflowStates] (WorkflowID, StateName, [Order], IsActive, Notify)
+	VALUES(@TestingWorkflowID,'Pending Approval', 2, 1, 0)
+	
+INSERT INTO {databaseOwner}[{objectQualifier}WorkflowStates] (WorkflowID, StateName, [Order], IsActive, Notify)
+	VALUES(@TestingWorkflowID,'Published', 3, 1, 0)
+/**********************************************/
+
+
+
+/* INSERT REVIEW PERMISSION */
+INSERT INTO {databaseOwner}[{objectQualifier}Permission] (PermissionCode, ModuleDefID, PermissionKey, PermissionName, ViewOrder)
+VALUES ('WORKFLOW_MODULE',-1,'REVIEW','Review/Approve Content',0)
+/****************************/
+
+
+
+/* INSERT APPROVER SECURITY ROLE */
+INSERT INTO {databaseOwner}[{objectQualifier}Roles] (PortalID, RoleName, [Description])
+VALUES (0,'Approver','used to approve content')
+/*********************************/
+
+
+
+/* CREATE ROW FOR SECURITY CHECK AGAINST APPROVER ROLE ON THE STATE CREATED FOR THE TEST APPROVAL MODE */
+DECLARE @TestingStateId int
+DECLARE @TestingPermissionId int
+DECLARE @TestingRoleId int
+SET @TestingStateId = (select StateID from {databaseOwner}[{objectQualifier}WorkflowStates] where StateName = 'Pending Approval')
+SET @TestingPermissionId = (select PermissionId from {databaseOwner}[{objectQualifier}Permission] where PermissionCode = 'WORKFLOW_MODULE' AND PermissionKey = 'REVIEW')
+SET @TestingRoleId = (select RoleID from {databaseOwner}[{objectQualifier}Roles] where RoleName = 'Approver')
+
+INSERT INTO {databaseOwner}[{objectQualifier}workflowstatepermission] (StateID, PermissionID, AllowAccess, RoleID)
+	VALUES (@TestingStateId,@TestingPermissionId, 1, @TestingRoleId)
+/*******************************************************************************************************/
+
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+/* CREATE GETWORKFLOWSTATEPERMISSIONS PROCEDURE */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}GetWorkflowStatePermissions]
+AS
+BEGIN
+	select * from vw_{objectQualifier}workflowstatepermissions 
+END
+GO
+/***********************************************/
+
+
+
+/* CREATE GETWORKFLOWSTATEPERMISSIONSBYSTATEID PROCEDURE */
+
+CREATE PROCEDURE {databaseOwner}[{objectQualifier}GetWorkflowStatePermissionsByStateID]
+	@StateID int
+AS
+BEGIN
+	select * from vw_{objectQualifier}workflowstatepermissions where[StateID] = @StateID
+END
+GO
+/*********************************************************/
+

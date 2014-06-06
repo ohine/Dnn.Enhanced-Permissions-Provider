@@ -1,0 +1,19 @@
+﻿/************************************************************/
+/*****          Fix our Custom Permissions              *****/
+/************************************************************/
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Manage Settings'
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'EDIT'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Full Control'
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'ADMIN'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Manage Settings'
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'EDIT'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Full Control'
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'ADMIN'

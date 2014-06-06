@@ -1,0 +1,2 @@
+﻿bin\Providers\OliverHine.Provider.CustomPermissions.dll
+Providers\PermissionProviders\CustomPermissionProvider\

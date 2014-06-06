@@ -1,0 +1,12 @@
+﻿/************************************************************/
+/*****    Build our Custom FileSystem Permissions       *****/
+/************************************************************/
+
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_FOLDER', 'ADD', 'Add Folder', 2)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_FOLDER', 'COPY', 'Copy Folder', 3)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_FOLDER', 'DELETE', 'Delete Folder', 4)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_FOLDER', 'ADMIN', 'Admin', 9998)
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [ViewOrder] = 9997
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'WRITE'

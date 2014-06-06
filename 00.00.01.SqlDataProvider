@@ -1,0 +1,14 @@
+﻿/************************************************************/
+/*****    Build our Custom Module Permissions           *****/
+/************************************************************/
+
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_MODULE_DEFINITION', 'IMPORT', 'Import', 3)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_MODULE_DEFINITION', 'EXPORT', 'Export', 4)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_MODULE_DEFINITION', 'CONTENT', 'Edit Content', 1)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_MODULE_DEFINITION', 'ADMIN', 'Admin', 9998)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_MODULE_DEFINITION', 'DELETE', 'Delete', 2)
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Manage',
+    [ViewOrder] = 9997
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'EDIT'

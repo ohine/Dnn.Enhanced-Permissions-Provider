@@ -1,0 +1,145 @@
+﻿
+/************************************************************/
+/*****        Uninstall Custom Permissions              *****/
+/************************************************************/
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'ADMIN'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'CONTENT'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'EXPORT'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'IMPORT'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'DELETE'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'MANAGE'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Edit',
+    [ViewOrder] = 9999
+WHERE [PermissionCode] = 'SYSTEM_MODULE_DEFINITION' AND [PermissionKey] = 'EDIT'
+
+
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'ADD'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'COPY'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'DELETE'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'IMPORT'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'EXPORT'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'CONTENT'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'ADMIN'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'MANAGE'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'NAV'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Edit Tab',
+    [ViewOrder] = 9999
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'EDIT'
+
+
+
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'ADD'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'COPY'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'DELETE'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'ADMIN'
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'MANAGE'
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [ViewOrder] = 9999, [PermissionName] = 'Write to Folder'
+WHERE [PermissionCode] = 'SYSTEM_FOLDER' AND [PermissionKey] = 'WRITE'
+
+
+
+/* REMOVE WORKFLOW BITS */
+
+/****** Object:  StoredProcedure [dbo].[GetWorkflowStatePermissionsByStateID]    Script Date: 07/08/2009 11:49:35 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}GetWorkflowStatePermissionsByStateID]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}[{objectQualifier}GetWorkflowStatePermissionsByStateID]
+GO
+
+/****** Object:  StoredProcedure [dbo].[GetWorkflowStatePermissions]    Script Date: 07/08/2009 11:49:35 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}GetWorkflowStatePermissions]') AND type in (N'P', N'PC'))
+DROP PROCEDURE {databaseOwner}[{objectQualifier}GetWorkflowStatePermissions]
+GO
+
+
+
+
+
+
+/****** Object:  Table [dbo].[WorkflowStatePermission]    Script Date: 07/08/2009 11:50:23 ******/
+IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'{databaseOwner}[{objectQualifier}WorkflowStatePermission]') AND type in (N'U'))
+    BEGIN
+        ALTER TABLE {databaseOwner}[{objectQualifier}WorkflowStatePermission] DROP CONSTRAINT [PK_{objectQualifier}WorkflowStatePermissions]
+        DROP TABLE {databaseOwner}[{objectQualifier}WorkflowStatePermission]
+    END
+GO
+
+
+/****** Object:  View [dbo].[vw_WorkflowStatePermissions]    Script Date: 07/09/2009 00:34:00 ******/
+IF  EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[vw_WorkflowStatePermissions]'))
+DROP VIEW [dbo].[vw_WorkflowStatePermissions]
+GO
+
+
+DECLARE @WorkflowIdToDelete int
+SET @WorkflowIdToDelete = (SELECT WorkflowID FROM {databaseOwner}[{objectQualifier}Workflow] WHERE WorkflowName = 'Content Approval')
+
+DELETE FROM {databaseOwner}{objectQualifier}WorkflowStates
+WHERE [WorkflowID] = @WorkflowIdToDelete
+
+DELETE FROM {databaseOwner}{objectQualifier}Workflow 
+WHERE [WorkflowID] = @WorkflowIdToDelete
+
+
+DELETE FROM {databaseOwner}{objectQualifier}Permission 
+WHERE [PermissionCode] = 'WORKFLOW_MODULE' AND [PermissionKey] = 'REVIEW'
+
+DELETE FROM {databaseOwner}{objectQualifier}Roles 
+WHERE [RoleName] = 'Approver'
+
+
+
+
+/* Remove the REVIEW control in the Text/HTML module */
+DECLARE @TextHTMLModuleDefID int
+SET @TextHTMLModuleDefID = (SELECT TOP 1 [ModuleDefID] FROM {databaseOwner}[{objectQualifier}ModuleDefinitions] WHERE [FriendlyName] = 'Text/HTML')
+
+DELETE FROM {databaseOwner}[{objectQualifier}ModuleControls]
+WHERE [ModuleDefID] = @TextHTMLModuleDefID AND [ControlKey] = 'Review'
+
+

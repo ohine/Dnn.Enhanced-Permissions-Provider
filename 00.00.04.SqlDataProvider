@@ -1,0 +1,16 @@
+﻿/************************************************************/
+/*****     Build our Custom Tab Permissions             *****/
+/************************************************************/
+
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_TAB', 'ADD', 'Add Page', 2)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_TAB', 'COPY', 'Copy Page', 3)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_TAB', 'DELETE', 'Delete Page', 4)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_TAB', 'IMPORT', 'Import', 5)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_TAB', 'EXPORT', 'Export', 6)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_TAB', 'CONTENT', 'Edit Content', 1)
+INSERT INTO {databaseOwner}{objectQualifier}Permission([ModuleDefID],[PermissionCode],[PermissionKey],[PermissionName],[ViewOrder]) VALUES (-1,'SYSTEM_TAB', 'ADMIN', 'Admin', 9998)
+
+UPDATE {databaseOwner}{objectQualifier}Permission 
+    SET [PermissionName] = 'Manage',
+    [ViewOrder] = 9997
+WHERE [PermissionCode] = 'SYSTEM_TAB' AND [PermissionKey] = 'EDIT'
