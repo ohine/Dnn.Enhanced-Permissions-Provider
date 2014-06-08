@@ -1,4 +1,4 @@
-Dnn: Enhanced Permissions Provider by Oliver Hine
+Enhanced Permissions Provider by Oliver Hine
 =================================
 This provider will enable every permission available in DotNetNuke and the DNN Platform. By default, only the VIEW and EDIT permissions are configured out of the box. Installing our provider will enable the following:
 
