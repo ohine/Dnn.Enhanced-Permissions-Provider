@@ -1,11 +1,9 @@
 '
 ' Enhanced Permissions Provider for DotNetNuke® - http://www.oliverhine.com
-' Copyright (c) 2009
+' Copyright (c) 2009-2014
 ' by Oliver Hine
 '
-Imports System.Collections.Generic
 
-Imports DotNetNuke.ComponentModel
 Imports DotNetNuke.Entities.Modules
 Imports DotNetNuke.Entities.Tabs
 Imports DotNetNuke.Services.FileSystem
@@ -15,8 +13,6 @@ Namespace OliverHine.Provider.EnhancedPermissions
 
     Partial Class Implementation
         Inherits PermissionProvider
-
-        'Private dataProvider As DotNetNuke.Data.DataProvider = DotNetNuke.Data.DataProvider.Instance()
 
 #Region "Constants"
 
