@@ -20,6 +20,7 @@ Namespace OliverHine.Provider.EnhancedPermissions
         Private Const AdminFolderPermissionCode As String = "WRITE"
         Private Const AddFolderPermissionCode As String = "ADD"
         Private Const CopyFolderPermissionCode As String = "COPY"
+        Private Const BrowseFolderPermissionKey As String = "BROWSE"
         Private Const DeleteFolderPermissionCode As String = "DELETE"
         Private Const ManageFolderPermissionCode As String = "MANAGE"
         Private Const ViewFolderPermissionCode As String = "READ"
@@ -58,12 +59,24 @@ Namespace OliverHine.Provider.EnhancedPermissions
 #Region "FolderPermission Methods"
 
         Public Overrides Function CanAdminFolder(ByVal folder As FolderInfo) As Boolean
+            If folder Is Nothing Then
+                Return False
+            End If
             Return PortalSecurity.IsInRoles(folder.FolderPermissions.ToString(AdminFolderPermissionCode))
         End Function
 
         Public Overrides Function CanAddFolder(ByVal folder As FolderInfo) As Boolean
             Return PortalSecurity.IsInRoles(folder.FolderPermissions.ToString(AddFolderPermissionCode))
         End Function
+
+#If DNN7 Then
+        Public Overrides Function CanBrowseFolder(ByVal folder As FolderInfo) As Boolean
+            If folder Is Nothing Then
+                Return False
+            End If
+            Return (PortalSecurity.IsInRoles(folder.FolderPermissions.ToString(BrowseFolderPermissionKey)) OrElse PortalSecurity.IsInRoles(folder.FolderPermissions.ToString(ViewFolderPermissionCode))) AndAlso Not PortalSecurity.IsDenied(folder.FolderPermissions.ToString(BrowseFolderPermissionKey))
+        End Function
+#End If
 
         Public Overrides Function CanCopyFolder(ByVal folder As FolderInfo) As Boolean
             Return PortalSecurity.IsInRoles(folder.FolderPermissions.ToString(CopyFolderPermissionCode))
@@ -110,7 +123,7 @@ Namespace OliverHine.Provider.EnhancedPermissions
         End Function
 
         Public Overrides Function CanViewModule(ByVal objModule As ModuleInfo) As Boolean
-            Return PortalSecurity.IsInRoles(objModule.ModulePermissions.ToString(ViewModulePermissionCode))
+            Return objModule.InheritViewPermissions OrElse PortalSecurity.IsInRoles(objModule.ModulePermissions.ToString(ViewModulePermissionCode))
         End Function
 
 
