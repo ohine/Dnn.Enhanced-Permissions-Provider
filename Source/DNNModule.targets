@@ -4,8 +4,8 @@
 
     <!-- PLEASE NOTE THAT CHANGES TO THIS FILE WILL NOT TAKE AFFECT UNTIL YOU UNLOAD AND RELOAD YOUR PROJECT! -->
 	<PropertyGroup>
-		<CompanyName>OliverHine</CompanyName>
-		<ModuleName>EnhancedPermissionProvider</ModuleName>
+		<CompanyName>Oliver Hine</CompanyName>
+		<ModuleName>The Enhanced Permission Provider</ModuleName>
     <AssemblyName>OliverHine.Provider.EnhancedPermissions</AssemblyName>
 		<DotNetNukeDir></DotNetNukeDir>
 		<EnableDeployment>1</EnableDeployment>
@@ -32,7 +32,7 @@
 
     <Target Name="SetVersionInfo" Condition="$(EnableDeployment) == '1' and Exists('$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets')">
 		<!-- Obtain Version information from version.txt -->
-		<Version BuildType="Automatic" RevisionType="None" VersionFile="version.txt" StartDate="06/24/2009">
+		<Version BuildType="Automatic" RevisionType="None" VersionFile="version.txt" StartDate="02/17/2016">
 			<Output TaskParameter="Major" PropertyName="Major" />
 			<Output TaskParameter="Minor" PropertyName="Minor" />
 			<Output TaskParameter="Build" PropertyName="Build" />
@@ -67,7 +67,7 @@
 
 	<Target Name="ZipFiles">
 		<!-- Obtain reference to installation files -->
-        <CreateItem Include="$(TargetDir)$(CompanyName).Provider.EnhancedPermissions.dll;
+        <CreateItem Include="$(TargetDir)$(AssemblyName).dll;
 							$(MSBuildProjectDirectory)\App_LocalResources\*.resx;
 							$(MSBuildProjectDirectory)\*.SqlDataProvider;
 							$(MSBuildProjectDirectory)\*.ascx;
@@ -79,7 +79,7 @@
             <Output TaskParameter="Include" ItemName="InstallZipFiles" />
         </CreateItem>
         <!-- Zip installation files -->
-        <Zip Files="@(InstallZipFiles)" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(DeployDir)\$(CompanyName).$(ModuleName).install.v$(Major).$(Minor).$(Build).$(Revision).zip" />
+        <Zip Files="@(InstallZipFiles)" WorkingDirectory="$(MSBuildProjectDirectory)\" ZipFileName="$(DeployDir)\$(ModuleName) by $(CompanyName) - v$(Major).$(Minor).$(Build).$(Revision) for $(Configuration).zip" />
 
         <!-- Create exclude file list -->
 		<CreateItem Include="**\.svn\**;**\obj\**;**\bin\**;**\*.user;**\*.suo;**\*.zip;**\installation\**">
@@ -103,7 +103,7 @@
 	</Target>
 	<Target Name="CopyFilesToDotNetNuke">
 		<!-- Obtain reference to installation files -->
-		<CreateItem Include="$(DeployDir)\$(CompanyName).$(ModuleName).install.v$(Major).$(Minor).$(Build).$(Revision).zip">
+		<CreateItem Include="$(DeployDir)\$(ModuleName) by $(CompanyName) - v$(Major).$(Minor).$(Build).$(Revision) for $(Configuration).zip">
 			<Output TaskParameter="Include" ItemName="InstallZip" />
 		</CreateItem>
 		<!-- Copy Files to DotNetNuke Installation -->
@@ -111,7 +111,7 @@
 		<CallTarget Targets="DeployPDB" Condition="$(DeployPDB) == 1 and '$(ConfigurationName)'=='Debug' and '$(DotNetNukeDir)'!=''" />
 	</Target>
 	<Target Name="DeployPDB">
-		<CreateItem Include="$(TargetDir)\$(CompanyName).$(ModuleName).pdb">
+		<CreateItem Include="$(TargetDir)\$(AssemblyName).pdb">
 			<Output TaskParameter="Include" ItemName="PDBFile" />
 		</CreateItem>
 		<Copy SourceFiles="@(PDBFile)" DestinationFolder="$(DotNetNukeDir)\bin\" SkipUnchangedFiles="false" ContinueOnError="true" />

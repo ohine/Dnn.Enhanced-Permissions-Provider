@@ -1,6 +1,9 @@
-﻿<b>If you installed v00.00.01, you need to start from scratch due to a bug in the intial sql query</b><hr/>
+﻿
+<b>v00.02.01</b> - 2/18/2016 internal unreleased build<br/>
+switched from bin/Providers to bin folder, tested against Dnn v7.4.1
+<br/>
 
-<b>v00.01.1807</b> - UNRELEASED<br/>
+<b>v00.01.1807</b> - 6/30/2014 - internal unreleased build<br/>
 removed html workflow functionality (splitting into separate module), update license to MIT, added DNN5+ and DNN7.2.1+ builds
 <br/>
 

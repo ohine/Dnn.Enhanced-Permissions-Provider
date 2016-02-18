@@ -8,10 +8,10 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 <Assembly: AssemblyTitle("Oliver Hine - Enhanced Permissions Provider")> 
-<Assembly: AssemblyDescription("A Custom Enhanced Permission Provider for DotNetNuke and the DNN Platform")> 
+<Assembly: AssemblyDescription("An Enhanced Permission Provider for DotNetNuke and the DNN Platform")> 
 <Assembly: AssemblyCompany("Oliver Hine")> 
 <Assembly: AssemblyProduct("")> 
-<Assembly: AssemblyCopyright("2009 - www.OliverHine.com")> 
+<Assembly: AssemblyCopyright("2016 - www.OliverHine.com")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
@@ -25,4 +25,4 @@ Imports System.Runtime.InteropServices
 '
 ' You can specify all the values or you can default the Build and Revision Numbers 
 ' by using the '*' as shown below:
-<Assembly: AssemblyVersion("00.01.1807.00")> 
+<Assembly: AssemblyVersion("00.02.01.00")> 
